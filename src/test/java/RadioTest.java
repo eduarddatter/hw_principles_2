@@ -132,6 +132,19 @@ public class RadioTest {
     public void shouldNotSetVolumeUnderZero() {
         Radio radio = new Radio();
 
+        radio.setCurrentVolume(-1);
+        radio.decreaseVolume();
+
+        int expected = 0;
+        int actual = radio.getCurrentVolume();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldNotSetVolumeMinZero() {
+        Radio radio = new Radio();
+
         radio.setCurrentVolume(0);
         radio.decreaseVolume();
 
@@ -168,10 +181,23 @@ public class RadioTest {
     }
 
     @Test
-    public void shouldNotSetVolumeAboveOneHundred() {
+    public void shouldSetVolumeMaxOneHundred() {
         Radio radio = new Radio();
 
         radio.setCurrentVolume(100);
+        radio.increaseVolume();
+
+        int expected = 100;
+        int actual = radio.getCurrentVolume();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldNotSetVolumeAboveOneHundred() {
+        Radio radio = new Radio();
+
+        radio.setCurrentVolume(101);
         radio.increaseVolume();
 
         int expected = 100;
